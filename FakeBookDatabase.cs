@@ -8,7 +8,7 @@ namespace GestaoLivraria
         private static int _nextId = 1;
         public static List<Book> Livros { get; } = new();
 
-        public static ResponseRegisteredBookJson AddBook(RequestRegisterBookJson book)
+        public static ResponseBookJson AddBook(RequestBookJson book)
         {
             var newBook = new Book
             {
@@ -20,7 +20,7 @@ namespace GestaoLivraria
                 Stock = book.Stock
             };
             Livros.Add(newBook);
-            var response = new ResponseRegisteredBookJson
+            var response = new ResponseBookJson
             {
                 Id = newBook.Id,
                 Title = newBook.Title,

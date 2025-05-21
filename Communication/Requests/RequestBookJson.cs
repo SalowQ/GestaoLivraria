@@ -1,6 +1,6 @@
 ﻿namespace GestaoLivraria.Communication.Requests
 {
-    public class RequestRegisterBookJson
+    public class RequestBookJson
     {
         public string Title { get; set; } = string.Empty;
         public string Author { get; set; } = string.Empty;

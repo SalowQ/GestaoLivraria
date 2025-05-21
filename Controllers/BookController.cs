@@ -9,8 +9,8 @@ namespace GestaoLivraria.Controllers
     public class BookController : ControllerBase
     {
         [HttpPost]
-        [ProducesResponseType(typeof(ResponseRegisteredBookJson), StatusCodes.Status201Created)]
-        public IActionResult AddBook([FromBody]RequestRegisterBookJson book)
+        [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status201Created)]
+        public IActionResult AddBook([FromBody]RequestBookJson book)
         {
             if (book == null || string.IsNullOrEmpty(book.Title) || string.IsNullOrEmpty(book.Author) || string.IsNullOrEmpty(book.Genre) || book.Price <= 0 || book.Stock <= 0)
             {
