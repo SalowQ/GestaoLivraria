@@ -1,0 +1,24 @@
+﻿using GestaoLivraria.Communication.Requests;
+using GestaoLivraria.Communication.Responses;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace GestaoLivraria.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BookController : ControllerBase
+    {
+        [HttpPost]
+        [ProducesResponseType(typeof(ResponseRegisteredBookJson), StatusCodes.Status201Created)]
+        public IActionResult AddBook([FromBody]RequestRegisterBookJson book)
+        {
+            if (book == null || string.IsNullOrEmpty(book.Title) || string.IsNullOrEmpty(book.Author) || string.IsNullOrEmpty(book.Genre) || book.Price <= 0 || book.Stock <= 0)
+            {
+                return BadRequest("Erro na criação do livro.");
+            }
+            var response = FakeBookDatabase.AddBook(book);
+            return Created(string.Empty, response);
+        }
+    }
+}

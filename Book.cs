@@ -1,24 +1,22 @@
 ﻿namespace GestaoLivraria
 {
-    public enum BookGenre
+    public class BookGenre
     {
-        Fiction,
-        NonFiction,
-        Science,
-        History,
-        Fantasy,
-        Mystery,
-        Romance,
-        Thriller,
-        Horror,
-        Biography
+        public const string Fiction = "Fiction";
+        public const string NonFiction = "Non-Fiction";
+        public const string Science = "Science";
+        public const string History = "History";
+        public const string Fantasy = "Fantasy";
+        public const string Mystery = "Mystery";
+        public const string Romance = "Romance";
     }
+
     public class Book
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Author { get; set; } = string.Empty;
-        public BookGenre Genre { get; set; }
+        public string Genre { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int Stock { get; set; }
     }
