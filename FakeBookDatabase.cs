@@ -6,7 +6,7 @@ namespace GestaoLivraria
     public class FakeBookDatabase
     {
         private static int _nextId = 1;
-        public static List<Book> Livros { get; } = new();
+        public static List<Book> Books { get; } = new();
 
         public static ResponseBookJson AddBook(RequestBookJson book)
         {
@@ -19,7 +19,7 @@ namespace GestaoLivraria
                 Price = book.Price,
                 Stock = book.Stock
             };
-            Livros.Add(newBook);
+            Books.Add(newBook);
             var response = new ResponseBookJson
             {
                 Id = newBook.Id,
@@ -30,7 +30,7 @@ namespace GestaoLivraria
 
         public static ResponseBookJson EditBook(RequestBookJson book, int id)
         {
-            var existingBook = Livros.FirstOrDefault(b => b.Id == id);
+            var existingBook = Books.FirstOrDefault(b => b.Id == id);
             if (existingBook == null)
             {
                 throw new Exception("Livro não encontrado.");

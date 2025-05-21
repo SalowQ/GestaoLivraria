@@ -10,7 +10,7 @@ namespace GestaoLivraria.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status201Created)]
-        public IActionResult AddBook([FromBody]RequestBookJson book)
+        public IActionResult AddBook([FromBody] RequestBookJson book)
         {
             if (book == null || string.IsNullOrEmpty(book.Title) || string.IsNullOrEmpty(book.Author) || string.IsNullOrEmpty(book.Genre) || book.Price <= 0 || book.Stock <= 0)
             {
@@ -25,12 +25,12 @@ namespace GestaoLivraria.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult GetBooks()
         {
-            if (!FakeBookDatabase.Livros.Any())
+            if (!FakeBookDatabase.Books.Any())
             {
                 return NoContent();
             }
-                
-            return Ok(FakeBookDatabase.Livros);
+
+            return Ok(FakeBookDatabase.Books);
         }
 
         [HttpPut("{id}")]
@@ -43,6 +43,19 @@ namespace GestaoLivraria.Controllers
             }
             var response = FakeBookDatabase.EditBook(book, id);
             return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult DeleteBook(int id)
+        {
+            var existingBook = FakeBookDatabase.Books.FirstOrDefault(b => b.Id == id);
+            if (existingBook == null)
+            {
+                return NotFound("Livro não encontrado.");
+            }
+            FakeBookDatabase.Books.Remove(existingBook);
+            return NoContent();
         }
     }
 }
