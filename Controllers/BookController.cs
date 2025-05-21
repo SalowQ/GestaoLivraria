@@ -1,6 +1,5 @@
 ﻿using GestaoLivraria.Communication.Requests;
 using GestaoLivraria.Communication.Responses;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoLivraria.Controllers
@@ -19,6 +18,19 @@ namespace GestaoLivraria.Controllers
             }
             var response = FakeBookDatabase.AddBook(book);
             return Created(string.Empty, response);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(List<Book>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult GetBooks()
+        {
+            if (!FakeBookDatabase.Livros.Any())
+            {
+                return NoContent();
+            }
+                
+            return Ok(FakeBookDatabase.Livros);
         }
     }
 }
