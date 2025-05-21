@@ -27,5 +27,25 @@ namespace GestaoLivraria
             };
             return response;
         }
+
+        public static ResponseBookJson EditBook(RequestBookJson book, int id)
+        {
+            var existingBook = Livros.FirstOrDefault(b => b.Id == id);
+            if (existingBook == null)
+            {
+                throw new Exception("Livro não encontrado.");
+            }
+            existingBook.Title = book.Title;
+            existingBook.Author = book.Author;
+            existingBook.Genre = book.Genre;
+            existingBook.Price = book.Price;
+            existingBook.Stock = book.Stock;
+            var response = new ResponseBookJson
+            {
+                Id = existingBook.Id,
+                Title = existingBook.Title,
+            };
+            return response;
+        }
     }
 }

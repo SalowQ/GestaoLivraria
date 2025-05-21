@@ -32,5 +32,17 @@ namespace GestaoLivraria.Controllers
                 
             return Ok(FakeBookDatabase.Livros);
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status200OK)]
+        public IActionResult EditBook([FromBody] RequestBookJson book, [FromRoute] int id)
+        {
+            if (book == null || string.IsNullOrEmpty(book.Title) || string.IsNullOrEmpty(book.Author) || string.IsNullOrEmpty(book.Genre) || book.Price <= 0 || book.Stock <= 0)
+            {
+                return BadRequest("Erro na edição do livro.");
+            }
+            var response = FakeBookDatabase.EditBook(book, id);
+            return Ok(response);
+        }
     }
 }
