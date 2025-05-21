@@ -2,13 +2,22 @@
 {
     public class BookGenre
     {
-        public const string Fiction = "Fiction";
-        public const string NonFiction = "Non-Fiction";
-        public const string Science = "Science";
-        public const string History = "History";
-        public const string Fantasy = "Fantasy";
-        public const string Mystery = "Mystery";
+        public const string Fiction = "Ficção";
+        public const string Science = "Ciência";
+        public const string History = "História";
+        public const string Fantasy = "Fantasia";
+        public const string Mystery = "Mistério";
         public const string Romance = "Romance";
+
+        public static readonly string[] AllGenres = new[]
+        {
+            Fiction, Science, History, Fantasy, Mystery, Romance
+        };
+
+        public static bool IsInvalid(string valor)
+        {
+            return !AllGenres.Contains(valor, StringComparer.OrdinalIgnoreCase);
+        }
     }
 
     public class Book

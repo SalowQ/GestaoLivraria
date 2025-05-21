@@ -12,7 +12,7 @@ namespace GestaoLivraria.Controllers
         [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status201Created)]
         public IActionResult AddBook([FromBody] RequestBookJson book)
         {
-            if (book == null || string.IsNullOrEmpty(book.Title) || string.IsNullOrEmpty(book.Author) || string.IsNullOrEmpty(book.Genre) || book.Price <= 0 || book.Stock <= 0)
+            if (book == null || string.IsNullOrEmpty(book.Title) || string.IsNullOrEmpty(book.Author) || string.IsNullOrEmpty(book.Genre) || BookGenre.IsInvalid(book.Genre) || book.Price <= 0 || book.Stock <= 0)
             {
                 return BadRequest("Erro na criação do livro.");
             }
