@@ -8,7 +8,27 @@ namespace GestaoLivraria.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
+        /// <summary>
+        /// Adiciona um livro novo.
+        /// </summary>
+        /// <remarks>
+        /// Gêneros (genre) aceitos::
+        ///
+        ///     
+        ///     {
+        ///         "Ficção",
+        ///         "Ciência",
+        ///         "História",
+        ///         "Fantasia",
+        ///         "Mistério",
+        ///         "Romance"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Retorna o ID e o título do livro criado.</response>
+        /// <response code="400">Retorna erro caso qualquer propriedade seja inválida ou esteja vazia.</response>
         [HttpPost]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status201Created)]
         public IActionResult AddBook([FromBody] RequestBookJson book)
         {
@@ -20,7 +40,13 @@ namespace GestaoLivraria.Controllers
             return Created(string.Empty, response);
         }
 
+        /// <summary>
+        /// Retorna todos os livros.
+        /// </summary>
+        ///<response code="200">Retorna a lista de livros disponíveis.</response>
+        ///<response code="204">Não retorna nenhum conteúdo pois não há livros disponíveis.</response>
         [HttpGet]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(List<Book>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult GetBooks()
@@ -33,7 +59,13 @@ namespace GestaoLivraria.Controllers
             return Ok(FakeBookDatabase.Books);
         }
 
+        /// <summary>
+        /// Atualiza um livro existente.
+        /// </summary>
+        /// <response code="200">Retorna o ID e o título do livro editado.</response>
+        /// <response code="400">Retorna erro caso qualquer propriedade seja inválida ou esteja vazia.</response>
         [HttpPut("{id}")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status200OK)]
         public IActionResult EditBook([FromBody] RequestBookJson book, [FromRoute] int id)
         {
@@ -45,6 +77,11 @@ namespace GestaoLivraria.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Deleta um livro existente.
+        /// </summary>
+        ///<response code="204">Não retorna nenhum conteúdo pois o livro foi deletado.</response>
+        ///<response code="400">Retorna erro caso o livro não for encontrado a partir do ID.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult DeleteBook(int id)
